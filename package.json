@@ -4,6 +4,9 @@
   "description": "list an objects nested paths in dot notation format",
   "license": "MIT",
   "main": "index.js",
+  "engines": {
+    "node": ">=4.0.0"
+  },
   "scripts": {
     "lint": "eslint index.js test/  --fix",
     "test": "NODE_ENV=test ava"
