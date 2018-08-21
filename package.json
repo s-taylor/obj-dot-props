@@ -1,6 +1,6 @@
 {
   "name": "obj-dot-props",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "list an objects nested paths in dot notation format",
   "license": "MIT",
   "main": "index.js",
