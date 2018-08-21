@@ -2,7 +2,7 @@
 
 ## What does it do?
 
-It returns that lists all of a given objects properties (paths), including nested properties in dot notation format.
+It returns a list of a given objects properties (paths), including nested properties in dot notation format.
 
 ## How do I use it?
 
