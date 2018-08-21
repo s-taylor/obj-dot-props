@@ -5,6 +5,7 @@
   "license": "MIT",
   "main": "index.js",
   "scripts": {
+    "lint": "eslint index.js test/  --fix",
     "test": "NODE_ENV=test ava"
   },
   "author": "Simon Taylor",
