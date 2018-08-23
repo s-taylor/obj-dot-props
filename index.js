@@ -1,4 +1,4 @@
-const flatMap = require('lodash.flatmap');
+const flatMap = (a, cb) => [].concat(...a.map(cb));
 
 const dotProps = (obj, prefix) => {
   if (typeof obj !== 'object') throw new Error('Invalid argument, must be an object');
