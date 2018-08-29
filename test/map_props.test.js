@@ -10,16 +10,24 @@ test.skip('it must not mutate the object', (t) => {
 test('it must allow updating props', (t) => {
   const obj = { a: 1, b: [2, 3], c: { d: 4 } };
 
-  const result = mapProps(obj, value => value * 2);
+  const result = mapProps(obj, value => value * 2, { parents: false });
 
   const expected = { a: 2, b: [4, 6], c: { d: 8 } };
   t.deepEqual(result, expected);
 });
 
-test('it must not change anything if value returned', (t) => {
+test('it must not change anything if value returned (excluding parents)', (t) => {
   const obj = { a: 1, b: [2, 3], c: { d: 4 } };
 
-  const result = mapProps(obj, value => value);
+  const result = mapProps(obj, value => value, { parents: false });
+
+  t.deepEqual(result, obj);
+});
+
+test('it must not change anything if value returned (including parents)', (t) => {
+  const obj = { a: 1, b: [2, 3], c: { d: 4 } };
+
+  const result = mapProps(obj, value => value, { parents: true });
 
   t.deepEqual(result, obj);
 });
@@ -37,7 +45,6 @@ test('it must allow unsetting object keys', (t) => {
 
   t.deepEqual(result, expected);
 });
-
 
 test('it can be used to clean up empty objects', (t) => {
   const obj = { b: [1, 2], c: {}, d: { e: 3 } };
