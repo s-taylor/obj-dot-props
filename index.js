@@ -2,9 +2,8 @@ const cloneDeep = require('lodash.clonedeep');
 const get = require('lodash.get');
 const set = require('lodash.set');
 const orderBy = require('lodash.orderby');
+const deletePath = require('./src/delete_path');
 
-const TRIM = /\]$/; // to trim trailing square bracket
-const SPLIT_RE = /\.|\[|\]\.*/;
 const flatMap = (a, cb) => [].concat(...a.map(cb));
 
 const sort = arr => orderBy(arr, ['depth', 'fullKey'], ['desc', 'asc']);
@@ -12,26 +11,6 @@ const sort = arr => orderBy(arr, ['depth', 'fullKey'], ['desc', 'asc']);
 // const depthDesc = (a, b) => (a.depth < b.depth ? 1 : a.depth > b.depth ? -1 : 0);
 
 exports.UNSET = '$UNSET_PROPERTY$';
-
-exports.deletePath = (obj, fullPath) => {
-  const pathArr = fullPath.replace(TRIM, '').split(SPLIT_RE);
-
-  let target = obj;
-  for (let i = 0; i < pathArr.length; i += 1) {
-    const path = pathArr[i];
-
-    if (i === pathArr.length - 1) {
-      if (Array.isArray(target)) {
-        const index = parseInt(path, 10);
-        target.splice(index, 1);
-      } else delete target[path];
-    }
-    target = target[path];
-  }
-
-  return obj;
-};
-
 
 const getProps = (options = {}) => {
   const { parents = false } = options;
@@ -77,7 +56,7 @@ exports.mapProps = (obj, predicate, options = {}) => {
   paths.forEach((path) => {
     const value = get(obj, path);
     const newValue = predicate(value, path, obj);
-    if (newValue === exports.UNSET) exports.deletePath(result, path);
+    if (newValue === exports.UNSET) deletePath(result, path);
     else if (value !== newValue) set(result, path, newValue);
   });
   return result;
