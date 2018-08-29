@@ -14,7 +14,16 @@ test('it must not mutate the object', (t) => {
   t.deepEqual(obj, original);
 });
 
-test('it must return expected format', (t) => {
+test('it must return expected format (excluding parents)', (t) => {
+  const obj = { a: 1, b: [2, 3], c: { d: 4 } };
+
+  const result = getProps(obj, { parents: false });
+  const expected = ['b[0]', 'b[1]', 'c.d', 'a'];
+
+  t.deepEqual(result, expected);
+});
+
+test('it must return expected format (including parents)', (t) => {
   const obj = { a: 1, b: [2, 3], c: { d: 4 } };
 
   const result = getProps(obj, { parents: true });
@@ -23,7 +32,16 @@ test('it must return expected format', (t) => {
   t.deepEqual(result, expected);
 });
 
-test('it works on deeply nested properies also', (t) => {
+test('it works on deeply nested properies also (excluding parents)', (t) => {
+  const obj = { a: [{ b: { c: 2 } }], d: { e: { f: [2] } } };
+
+  const result = getProps(obj, { parents: false });
+  const expected = ['a[0].b.c', 'd.e.f[0]'];
+
+  t.deepEqual(result, expected);
+});
+
+test('it works on deeply nested properies also (including parents)', (t) => {
   const obj = { a: [{ b: { c: 2 } }], d: { e: { f: [2] } } };
 
   const result = getProps(obj, { parents: true });
@@ -41,7 +59,7 @@ test('it must return an empty array when given an empty object', (t) => {
 test('it must be compatible with lodash.get', (t) => {
   const obj = { a: 1, b: [2, 3], c: { d: 4 } };
 
-  const props = getProps(obj);
+  const props = getProps(obj, { parents: false });
   const result = props.map(prop => get(obj, prop)).sort();
 
   const expected = [1, 2, 3, 4];
