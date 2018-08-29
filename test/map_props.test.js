@@ -1,5 +1,5 @@
 const test = require('ava');
-const { mapProps, UNSET } = require('../index');
+const { mapProps, UNSET } = require('../src/map_props');
 
 /* mapProps */
 

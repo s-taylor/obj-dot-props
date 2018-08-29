@@ -1,8 +1,8 @@
 const cloneDeep = require('lodash.clonedeep');
 const get = require('lodash.get');
 const set = require('lodash.set');
-const deletePath = require('./src/delete_path');
-const getProps = require('./src/get_props');
+const deletePath = require('./delete_path');
+const getProps = require('./get_props');
 
 // const depthDesc = (a, b) => (a.depth < b.depth ? 1 : a.depth > b.depth ? -1 : 0);
 
