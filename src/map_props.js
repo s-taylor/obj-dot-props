@@ -6,15 +6,15 @@ const getProps = require('./get_props');
 
 // const depthDesc = (a, b) => (a.depth < b.depth ? 1 : a.depth > b.depth ? -1 : 0);
 
-exports.UNSET = '$UNSET_PROPERTY$';
+exports.REMOVE = '$REMOVE_PROPERTY$';
 
 exports.mapProps = (obj, predicate, options = {}) => {
-  const result = cloneDeep(obj); // set/unset mutates, so clone it
+  const result = cloneDeep(obj); // set/remove mutates, so clone it
   const paths = getProps(result, options);
   paths.forEach((path) => {
     const value = get(obj, path);
     const newValue = predicate(value, path, obj);
-    if (newValue === exports.UNSET) deletePath(result, path);
+    if (newValue === exports.REMOVE) deletePath(result, path);
     else if (value !== newValue) set(result, path, newValue);
   });
   return result;

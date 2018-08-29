@@ -1,5 +1,5 @@
 const test = require('ava');
-const { mapProps, UNSET } = require('../src/map_props');
+const { mapProps, REMOVE } = require('../src/map_props');
 
 /* mapProps */
 
@@ -28,8 +28,8 @@ test('it must allow unsetting object keys', (t) => {
   const obj = { a: 1, b: [2, 3], c: { d: 4 } };
 
   const result = mapProps(obj, (value, pathName) => {
-    if (value === 1) return UNSET;
-    if (pathName === 'c.d') return UNSET;
+    if (value === 1) return REMOVE;
+    if (pathName === 'c.d') return REMOVE;
     return value;
   });
 
@@ -43,7 +43,7 @@ test('it can be used to clean up empty objects', (t) => {
   const obj = { b: [1, 2], c: {}, d: { e: 3 } };
 
   const result = mapProps(obj, (value) => {
-    if (typeof value === 'object' && Object.keys(value).length === 0) return UNSET;
+    if (typeof value === 'object' && Object.keys(value).length === 0) return REMOVE;
     return value;
   }, { parents: true });
 
@@ -58,8 +58,8 @@ test('it must allow unsetting array elements', (t) => {
   };
 
   const result = mapProps(obj, (value, pathName) => {
-    if (value === 2) return UNSET;
-    if (pathName === 'e[0]') return UNSET;
+    if (value === 2) return REMOVE;
+    if (pathName === 'e[0]') return REMOVE;
     return value;
   });
 
@@ -74,7 +74,7 @@ test('it can be used to clean up empty arrays', (t) => {
   const obj = { b: [1, 2], c: [], d: { e: 3 } };
 
   const result = mapProps(obj, (value) => {
-    if (Array.isArray(value) && value.length === 0) return UNSET;
+    if (Array.isArray(value) && value.length === 0) return REMOVE;
     return value;
   }, { parents: true });
 
