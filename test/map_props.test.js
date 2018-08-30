@@ -1,10 +1,16 @@
 const test = require('ava');
+const cloneDeep = require('lodash.clonedeep');
 const { mapProps, REMOVE } = require('../src/map_props');
 
 /* mapProps */
 
-test.skip('it must not mutate the object', (t) => {
-  // use all three options to ensure this
+test('it must not mutate the object', (t) => {
+  const obj = { a: 1, b: [2, 3], c: { d: 4 } };
+  const original = cloneDeep(obj);
+
+  mapProps(obj, () => undefined);
+
+  t.deepEqual(obj, original);
 });
 
 test('it must allow updating props', (t) => {

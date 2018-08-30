@@ -15,7 +15,9 @@ test('it must not mutate the object', (t) => {
 });
 
 test('it must return expected format (excluding parents)', (t) => {
-  const obj = { a: 1, b: [2, 3], c: { d: 4 } };
+  const obj = {
+    a: 1, b: [2, 3], c: { d: 4 }, e: [], f: {},
+  };
 
   const result = getProps(obj, { parents: false });
   const expected = ['b[0]', 'b[1]', 'c.d', 'a'];
@@ -24,10 +26,12 @@ test('it must return expected format (excluding parents)', (t) => {
 });
 
 test('it must return expected format (including parents)', (t) => {
-  const obj = { a: 1, b: [2, 3], c: { d: 4 } };
+  const obj = {
+    a: 1, b: [2, 3], c: { d: 4 }, e: [], f: {},
+  };
 
   const result = getProps(obj, { parents: true });
-  const expected = ['b[0]', 'b[1]', 'c.d', 'a', 'b', 'c'];
+  const expected = ['b[0]', 'b[1]', 'c.d', 'a', 'b', 'c', 'e', 'f'];
 
   t.deepEqual(result, expected);
 });
