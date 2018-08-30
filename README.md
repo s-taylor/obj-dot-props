@@ -107,7 +107,6 @@ This works because `.mapProps` iterates through the deepest nested keys first, s
 These are features I'd like to add
 
 * Allow setting options on function, OR just getting the default version
-* Add parcel bundling
 * Review and cleanup naming conventions of variables
 * Add examples USING the path! not just the value.
 * Allow a custom object cloner and default to JSON.stringify and parse

@@ -3,12 +3,17 @@
   "version": "1.1.0",
   "description": "list an objects nested paths in dot notation format",
   "license": "MIT",
-  "main": "./src/index.js",
+  "main": "./dist/index.js",
   "engines": {
     "node": ">=4.0.0"
   },
+  "files": [
+    "/dist"
+  ],
   "scripts": {
+    "build": "parcel build src/index.js -t browser -d dist",
     "lint": "eslint index.js test/  --fix",
+    "prepublish": "yarn build",
     "test": "NODE_ENV=test ava"
   },
   "author": "Simon Taylor",
@@ -39,7 +44,8 @@
     "ava": "^0.25.0",
     "eslint": "^5.3.0",
     "eslint-config-airbnb-base": "13.1.0",
-    "eslint-plugin-import": "^2.14.0"
+    "eslint-plugin-import": "^2.14.0",
+    "parcel": "^1.9.7"
   },
   "ava": {
     "verbose": true
