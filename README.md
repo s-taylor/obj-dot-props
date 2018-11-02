@@ -70,11 +70,15 @@ Like with `.getProps` parents are excluded by default, but you can always includ
 
 As an example, say we wanted to add `{ cache: false }` key value to all objects in `.b`.
 
+FIX ME - THIS DOESN'T ACTUALLY WORK???
+ARRAYS WITH OBJECTS DON'T SEEM TO REPORT THE PARENT
 ```js
 const obj = { a: { b: [{ c: 1}, { d: 2 }] }, c: { e: 3 } };
 
-const result = mapProps(obj, (value, path) => {
-    if (/^a\.b/.test(path)) return { ...value, cache: true };
+const result1 = mapProps(obj, (value, path) => {
+    if (/^a\.b/.test(path) && typeof value === 'object') {
+      return { ...value, cache: true };
+    }
     return value;
 });
 
